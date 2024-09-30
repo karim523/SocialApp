@@ -24,25 +24,24 @@ export const routes: Routes = [
     title: 'Register',
   },
   {
-    path: 'changepassword',
-    loadComponent: () => import('./components/changepassword/changepassword.component').then(c => c.ChangepasswordComponent),
-    canActivate: [authGuard],
-    title: 'Change Password',
-  },
-
-  {
     path: 'timeline',
-    loadComponent: () => import('./components/timeline/timeline.component').then(c => c.TimelineComponent),
+    component: TimelineComponent,
     canActivate: [authGuard],
     title: 'Timeline',
   },
-
+  {
+    path: 'changepassword',
+    component: ChangepasswordComponent,
+    canActivate: [authGuard],
+    title: 'Change Password',
+  },
   {
     path: 'profile',
-    loadComponent: () => import('./components/profile/profile.component').then(c => c.ProfileComponent),
+    component: ProfileComponent,
     canActivate: [authGuard],
     title: 'Profile',
   },
+
   {
     path: '**',
     loadComponent: () =>

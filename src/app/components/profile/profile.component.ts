@@ -26,6 +26,7 @@ export class ProfileComponent {
   userPhoto!: string;
   saveFile!: File;
   content!: string;
+
   ngOnInit(): void {
     this.displayPosts();
 
@@ -56,6 +57,7 @@ export class ProfileComponent {
       },
     });
   }
+
   displayPosts(): void {
     this._PostsService.getMyPosts().subscribe({
       next: (res) => {
@@ -65,4 +67,23 @@ export class ProfileComponent {
     });
   }
 
+  deletePost(postId: string): void {
+    this._PostsService.deletePost(postId).subscribe({
+      next: () => {
+        this.displayPosts();
+      },
+    });
+  }
+
+  updatePost(postId: string) {
+    const data = new FormData();
+    data.append('body', this.content);
+    data.append('image', this.saveFile);
+    this._PostsService.updatePost(postId, data).subscribe({
+      next: (res) => {
+        this.displayPosts();
+        this._ToastrService.success(res.message, 'linked post');
+      },
+    });
+  }
 }

@@ -24,13 +24,13 @@ export class PostsService {
     );
   }
   getSinglePost(postId: string): Observable<any> {
-    return this._HttpClient.get(`${environment.baseUrl}/posts/${postId}`);
+    return this._HttpClient.get(`${environment.baseUrl}posts/${postId}`);
   }
   updatePost(postId: string, data: object): Observable<any> {
-    return this._HttpClient.put(`${environment.baseUrl}/posts/${postId}`, data);
+    return this._HttpClient.put(`${environment.baseUrl}posts/${postId}`, data);
   }
   deletePost(postId: string): Observable<any> {
-    return this._HttpClient.delete(`${environment.baseUrl}/posts/${postId}`);
+    return this._HttpClient.delete(`${environment.baseUrl}posts/${postId}`);
   }
 
 }

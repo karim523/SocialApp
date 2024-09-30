@@ -38,7 +38,14 @@
           @if (loginForm.get('password')?.getError('required')) {
           <p class="m-0">Password is required</p>
           } @else if (loginForm.get('password')?.getError('pattern')) {
-          <p class="m-0">Must be at least 6 chars</p>
+          <ul class="m-0">
+            <li>password must be </li>
+            <li>Start with a letter (either uppercase or lowercase).</li>
+            <li>Be between 6 and 9 characters in total.</li>
+            <li>Can only contain letters (A-Z or a-z) and numbers (0-9)</li>
+            <li>At least one special character (such as #, !, &#64;, $, %, ^, &, *, etc.).</li>
+
+          </ul>
           }
         </div>
         }
@@ -48,7 +55,7 @@
           <div class="flex items-center h-5">
             <button type="submit"
               class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">signin
-              @if (isLoading) {<span><i class="fas fa-spin fa-spinner"></i></span>}</button>
+              @if (isLoading) {<span><i class="ms-2 fas fa-spin fa-spinner"></i></span>}</button>
           </div>
         </div>
       </div>
