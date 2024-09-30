@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   private readonly _UsersService = inject(UsersService);
   private readonly _FormBuilder = inject(FormBuilder);
+  private readonly _ToastrService = inject(ToastrService);
   private readonly _Router = inject(Router);
   loginSub!: Subscription;
   msgError: string = '';
@@ -51,6 +53,7 @@ export class LoginComponent {
             console.log(res);
             if (res.message == 'success') {
               this.msgSucces = true;
+              this._ToastrService.success(res.message,'linked post')
               setTimeout(() => {
                 localStorage.setItem('socialToken', res.token);
                 this._UsersService.saveUserData();

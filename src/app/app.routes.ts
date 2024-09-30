@@ -13,27 +13,41 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [logedGuard],
     title: 'Login',
   },
 
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [logedGuard],
     title: 'Register',
   },
   {
     path: 'changepassword',
-    component: ChangepasswordComponent,
-    title: 'ChangePassword',
+    loadComponent: () => import('./components/changepassword/changepassword.component').then(c => c.ChangepasswordComponent),
+    canActivate: [authGuard],
+    title: 'Change Password',
   },
+
   {
     path: 'timeline',
-    component: TimelineComponent,
-    title: 'TimeLine',
+    loadComponent: () => import('./components/timeline/timeline.component').then(c => c.TimelineComponent),
+    canActivate: [authGuard],
+    title: 'Timeline',
   },
+
   {
     path: 'profile',
-    component: ProfileComponent,
+    loadComponent: () => import('./components/profile/profile.component').then(c => c.ProfileComponent),
+    canActivate: [authGuard],
     title: 'Profile',
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./components/notfound/notfound.component').then(
+        (c) => c.NotfoundComponent
+      ),
   },
 ];

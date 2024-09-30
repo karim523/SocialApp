@@ -2,21 +2,24 @@ import { Component, inject } from '@angular/core';
 import { Ipost } from '../../core/interfaces/ipost';
 import { PostsService } from '../../core/services/posts.service';
 import { UsersService } from '../../core/services/users.service';
-import { CommentComponent } from "../../shared/ui/comment/comment.component";
+import { CommentComponent } from '../../shared/ui/comment/comment.component';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [DatePipe, CommentComponent, FormsModule, RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
   private readonly _PostsService = inject(PostsService);
   readonly _UsersService = inject(UsersService);
+  private readonly _ToastrService = inject(ToastrService);
+
   postsList: Ipost[] = [];
   userName: string = ' ';
   placeholder: string = ' ';
@@ -47,8 +50,9 @@ export class ProfileComponent {
     data.append('image', this.saveFile);
 
     this._PostsService.creatPost(data).subscribe({
-      next: () => {
+      next: (res) => {
         this.displayPosts();
+        this._ToastrService.success(res.message, 'linked post');
       },
     });
   }
@@ -60,4 +64,5 @@ export class ProfileComponent {
       },
     });
   }
+
 }

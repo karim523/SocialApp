@@ -1,5 +1,9 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  provideRouter,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -9,6 +13,11 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { headerInterceptor } from './core/interceptors/header.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
+import { errorsInterceptor } from './core/interceptors/errors.interceptor';
+import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +30,16 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideClientHydration(),
-    provideHttpClient(withFetch(), withInterceptors([headerInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        headerInterceptor,
+        errorsInterceptor,
+        loadingInterceptor,
+      ])
+    ),
+    provideAnimations(),
+    provideToastr(),
+    importProvidersFrom(NgxSpinnerModule),
   ],
 };

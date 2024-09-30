@@ -7,6 +7,7 @@ import { CommentComponent } from '../../shared/ui/comment/comment.component';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UsersService } from '../../core/services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-timeline',
@@ -18,6 +19,7 @@ import { UsersService } from '../../core/services/users.service';
 export class TimelineComponent {
   private readonly _PostsService = inject(PostsService);
   readonly _UsersService = inject(UsersService);
+  private readonly _ToastrService = inject(ToastrService);
   postsList: Ipost[] = [];
   userName: string = ' ';
   placeholder: string = ' ';
@@ -48,8 +50,10 @@ export class TimelineComponent {
     data.append('image', this.saveFile);
 
     this._PostsService.creatPost(data).subscribe({
-      next: () => {
+      next: (res) => {
         this.displayPosts();
+        this._ToastrService.success(res.message, 'linked post');
+
       },
     });
   }

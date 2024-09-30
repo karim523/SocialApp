@@ -25,10 +25,11 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "./node_modules/ngx-spinner/animations/ball-climbing-dot.css",
               "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/flowbite/dist/flowbite.min.js"],
+            "scripts": ["./node_modules/flowbite/dist/flowbite.min.js"],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

@@ -11,6 +11,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../core/services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-changepassword',
@@ -23,6 +24,8 @@ export class ChangepasswordComponent {
   private readonly _UsersService = inject(UsersService);
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
+
   changePassSub!: Subscription;
 
   changePassForm: FormGroup = this._FormBuilder.group(
@@ -47,7 +50,7 @@ export class ChangepasswordComponent {
         ],
       ],
       // rePassword:[null,[]]
-    },
+    }
     // { validators: [this.confirmPassword] }
   );
 
@@ -57,6 +60,7 @@ export class ChangepasswordComponent {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this._ToastrService.success(res.message, 'linked post');
           localStorage.setItem('socialToken', res.toekn);
           this._Router.navigate(['/login']);
         },

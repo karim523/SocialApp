@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent {
   private readonly _UsersService = inject(UsersService);
   private readonly _FormBuilder = inject(FormBuilder);
   private readonly _Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
 
   registerSub!: Subscription;
   msgError: string = '';
@@ -61,6 +63,8 @@ export class RegisterComponent {
         .subscribe({
           next: (res) => {
             console.log(res);
+            this._ToastrService.success(res.message,'linked post')
+
             if (res.message == 'success') {
               setTimeout(() => {
                 this.msgSucces = true;

@@ -3,6 +3,7 @@ import { CommentsService } from '../../../core/services/comments.service';
 import { Icomment } from '../../../core/interfaces/icomment';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-comment',
@@ -13,6 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class CommentComponent {
   private readonly _CommentsService = inject(CommentsService);
+  private readonly _ToastrService = inject(ToastrService);
 
   @Input({ required: true }) postId!: string;
 
@@ -29,6 +31,7 @@ export class CommentComponent {
     this._CommentsService.getPostComment(this.postId).subscribe({
       next: (res) => {
         console.log(`${this.postId}`, res);
+
         this.commentslist = res.comments.reverse();
       },
     });
@@ -40,7 +43,7 @@ export class CommentComponent {
         console.log(res);
         this.commentslist = res.comments.reverse();
         this.commentGroup.get('content')?.reset();
-
+        this._ToastrService.success(res.message, 'linked post');
       },
     });
   }
