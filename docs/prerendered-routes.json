@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/changepassword",
+    "/login",
+    "/profile",
+    "/register",
+    "/timeline"
+  ]
+}
